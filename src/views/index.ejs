@@ -6,21 +6,33 @@
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <title>Homepage | Clubhouse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mozilla+Headline:wght@200..700&display=swap" rel="stylesheet">
+    <title>Homepage | The Clubhouse</title>
   </head>
-  <body>
-    <nav><%- include("../views/partials/nav.ejs") %></nav>
+  <body class="font-montserrat bg-rose-50">
+    <nav class="border-b-1 border-rose-200"><%- include("../views/partials/nav.ejs") %></nav>
     <main>
-      <header>
-        <h1 class="flex flex-col text-4xl font-semibold">
-          <span> Welcome to <span>Clubhouse!</span> </span>
-          <span>The home for many odinners</span>
+      <header class="flex flex-col gap-5 items-center justify-center bg-gradient-to-b from-white to-rose-50 py-40">
+        <h1 class="text-6xl font-semibold text-center">
+          Welcome to <span class="font-clubhouse text-rose-50 bg-rose-500"><i>The Clubhouse!</i></span>
         </h1>
+        <small class="text-3xl font-medium text-gray-600"><i>The home for many odinners &#59;&#41;</i></small>
       </header>
+      <section class="flex flex-col items-center justify-center gap-10 my-10">
+        <div class="flex h-full items-center justify-center gap-3 text-rose-900">
+          <i class="size-7 animate-bounce" data-lucide="arrow-down"></i>
+          <h2 class="font-medium text-center text-xl">
+            Look for recent posts down here!
+          </h2>
+        </div>
+        <%- include("../views/partials/message.ejs") %>
+        <%- include("../views/partials/message.ejs") %>
+        <%- include("../views/partials/message.ejs") %>
+      </section>
     </main>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>
