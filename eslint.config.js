@@ -1,10 +1,10 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import prettier from "eslint-plugin-prettier";
-import globals from "globals";
-import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
-import { fileURLToPath } from "url";
+import js from "@eslint/js";
+import prettier from "eslint-plugin-prettier";
+import { defineConfig, globalIgnores } from "eslint/config";
+import globals from "globals";
 import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,6 +33,7 @@ export default defineConfig([
 
     rules: {
       "prettier/prettier": "error",
+      "no-console": "off",
     },
   },
 ]);
