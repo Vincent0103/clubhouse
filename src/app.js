@@ -11,6 +11,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 app.get("/", indexController.homepageGet);
 app.get("/register", indexController.registerGet);
+app.post("/register", indexController.registerPost);
 app.get("/login", indexController.loginGet);
 
 const { PORT } = process.env;

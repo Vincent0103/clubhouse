@@ -1,3 +1,6 @@
+# TODOS
+- Add footer with license etc.
+
 # clubhouse
 
 To install dependencies:

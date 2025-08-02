@@ -7,12 +7,15 @@
     "start": "bun src/app.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
     "@tailwindcss/cli": "^4.1.11",
+    "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "express-validator": "^7.2.1",
+    "express-validators": "^1.0.4",
     "lucide": "^0.536.0",
     "tailwindcss": "^4.1.11"
   },

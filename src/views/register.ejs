@@ -16,15 +16,16 @@
             <div>
                 <h1 class="text-2xl font-semibold font-clubhouse">Register an account</h1>
                 <small class="text-gray-600 text-sm font-medium">We need you in the club!</small>
+                <%- include("partials/errors.ejs") %>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-2.5 font-medium">
-                    <label class="text-sm" for="first-name">First name</label>
-                    <input class="border-1 border-gray-200 rounded-md shadow-xs py-2 px-3 text-sm" type="text" minlength="3" maxlength="255" id="first-name" name="first-name" required />
+                    <label class="text-sm" for="firstName">First name</label>
+                    <input class="border-1 border-gray-200 rounded-md shadow-xs py-2 px-3 text-sm" type="text" minlength="3" maxlength="255" id="firstName" name="firstName" required />
                 </div>
                 <div class="flex flex-col gap-2.5 font-medium">
-                    <label class="text-sm" for="last-name">Last name</label>
-                    <input class="border-1 border-gray-200 rounded-md shadow-xs py-2 px-3 text-sm" type="text" minlength="3" maxlength="255" id="last-name" name="last-name" required />
+                    <label class="text-sm" for="lastName">Last name</label>
+                    <input class="border-1 border-gray-200 rounded-md shadow-xs py-2 px-3 text-sm" type="text" minlength="3" maxlength="255" id="lastName" name="lastName" required />
                 </div>
             </div>
             <div class="flex flex-col gap-2.5 font-medium">
@@ -40,8 +41,8 @@
                 <input class="border-1 border-gray-200 rounded-md shadow-xs py-2 px-3 text-sm" type="password" id="password" name="password" required />
             </div>
             <div class="flex flex-col gap-2.5 font-medium">
-                <label class="text-sm" for="confirm-password">Confirm Password</label>
-                <input class="border-1 border-gray-200 rounded-md shadow-xs py-2 px-3 text-sm" type="password" id="confirm-password" name="confirm-password" required />
+                <label class="text-sm" for="confirmPassword">Confirm Password</label>
+                <input class="border-1 border-gray-200 rounded-md shadow-xs py-2 px-3 text-sm" type="password" id="confirmPassword" name="confirmPassword" required />
             </div>
             <button class="transition-colors mt-2 bg-rose-950 cursor-pointer hover:bg-rose-800 py-1.5 rounded-md font-medium text-white" type="submit">Register</button>
         </form>
