@@ -10,6 +10,7 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 app.get("/", indexController.homepageGet);
+app.get("/register", indexController.registerGet);
 
 const { PORT } = process.env;
 app.listen(PORT, () => {

@@ -3,7 +3,11 @@ const indexController = (() => {
     res.render("index");
   };
 
-  return { homepageGet };
+  const registerGet = (req, res) => {
+    res.render("register");
+  };
+
+  return { registerGet, homepageGet };
 })();
 
 export default indexController;
