@@ -7,7 +7,11 @@ const indexController = (() => {
     res.render("register");
   };
 
-  return { registerGet, homepageGet };
+  const loginGet = (req, res) => {
+    res.render("login");
+  };
+
+  return { loginGet, homepageGet, registerGet };
 })();
 
 export default indexController;
