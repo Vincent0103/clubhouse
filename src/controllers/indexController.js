@@ -74,15 +74,15 @@ const indexController = (() => {
   const registerPost = [
     validateRegister,
     (req, res) => {
-      console.log(Object.keys(req.body));
       const errors = validationResult(req);
+      const { pwd, confirmPwd, ...formData } = req.body;
       if (!errors.isEmpty()) {
         return res.status(400).render("register", {
           errors: errors.array(),
+          ...formData,
         });
       }
-      const { firstName, lastName, username, mail, pwd } = req.body;
-      db.createUser({ firstName, lastName, username, mail, pwd });
+      db.createUser({ ...formData, pwd });
       res.redirect("/");
     },
   ];

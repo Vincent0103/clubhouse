@@ -43,6 +43,7 @@
               maxlength="255"
               id="firstName"
               name="firstName"
+              value="<%= locals.firstName ||  "" %>"
               required
             />
           </div>
@@ -55,6 +56,7 @@
               maxlength="255"
               id="lastName"
               name="lastName"
+              value="<%= locals.lastName ||  "" %>"
               required
             />
           </div>
@@ -68,6 +70,7 @@
             maxlength="255"
             id="username"
             name="username"
+            value="<%= locals.username ||  "" %>"
             required
           />
         </div>
@@ -78,6 +81,7 @@
             type="email"
             id="mail"
             name="mail"
+            value="<%= locals.mail ||  "" %>"
             required
           />
         </div>
