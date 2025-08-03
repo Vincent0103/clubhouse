@@ -104,6 +104,14 @@ const db = (() => {
     }
   };
 
+  const deleteMessage = async (id) => {
+    const { error } = await supabase.from("MESSAGE").delete().eq("id", id);
+    if (error) {
+      console.error(`Error deleting message of id ${id}: `, error);
+      throw error;
+    }
+  };
+
   return {
     createUser,
     getUserByUsername,
@@ -112,6 +120,7 @@ const db = (() => {
     grantAdminUser,
     getMessages,
     createMessage,
+    deleteMessage,
   };
 })();
 
