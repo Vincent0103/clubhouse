@@ -1,13 +1,10 @@
 <% if (locals.errors) { %>
-<ul class="text-red-800 text-sm">
-  <% errors.forEach((error) => { %>
-    <% if (Array.isArray(error.msg)) { %>
-      <% error.msg.forEach((msg) => { %>
-        <li><%= msg %></li>
-      <% }); %>
-    <% } else { %>
-      <li><%= error.msg %></li>
-    <% } %>
-  <% }); %>
+<ul class="text-sm text-red-800">
+  <% errors.forEach((error) => { console.log(error) %> <% if
+  (Array.isArray(error.msg)) { %> <% error.msg.forEach((msg) => { %>
+  <li><%= msg %></li>
+  <% }); %> <% } else { %>
+  <li><%= error.msg %></li>
+  <% } %> <% }); %>
 </ul>
 <% } %>
