@@ -222,7 +222,6 @@ const indexController = (() => {
         }
 
         const userId = req.user.id;
-        console.log(userId);
         await db.createMessage(userId, title, content);
         res.redirect("/");
       } catch (err) {
@@ -232,7 +231,7 @@ const indexController = (() => {
     },
   ];
 
-  const deleteMessageGet = async (req, res, next) => {
+  const deleteMessagePost = async (req, res, next) => {
     try {
       const { messageId } = req.params;
       if (req.isAuthenticated() && req.user.is_admin) {
@@ -256,7 +255,7 @@ const indexController = (() => {
     loginAdminPost,
     createPostGet,
     createPostPost,
-    deleteMessageGet,
+    deleteMessagePost,
   };
 })();
 

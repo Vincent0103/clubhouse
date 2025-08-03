@@ -1,0 +1,32 @@
+<div
+  id="delete-message-popup"
+  class="bg-opacity-50 pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-md transition-opacity"
+>
+  <div class="flex min-h-screen items-center justify-center p-4">
+    <div class="w-sm max-w-sm rounded-lg bg-white p-6">
+      <form class="flex flex-col" method="POST">
+        <h3 class="font-clubhouse mb-1 text-xl font-semibold">
+          Do you really want to delete this message?
+        </h3>
+        <small class="mb-4 font-medium text-red-600"
+          >This action is irreversible.</small
+        >
+        <div class="flex justify-end gap-2">
+          <button
+            type="button"
+            id="delete-message-modal-close-btn"
+            class="cursor-pointer rounded-md bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300"
+          >
+            No
+          </button>
+          <button
+            type="submit"
+            class="cursor-pointer rounded-md bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700"
+          >
+            Yes, delete
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

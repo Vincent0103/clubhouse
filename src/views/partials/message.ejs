@@ -23,17 +23,15 @@
         </div>
       </div>
     </div>
-    <% if (locals.user?.is_admin) { console.log(message)%>
+    <% if (locals.user?.is_admin) { %>
     <div>
-      <a href="/delete-message/<%= message.id %>">
-        <button
-          class="cursor-pointer rounded-md bg-rose-500 p-1.5 text-sm font-medium text-white hover:bg-rose-700"
-          type="button"
-          id="reply-btn"
-        >
-          <i class="size-5" data-lucide="trash-2"></i>
-        </button>
-      </a>
+      <button
+        class="delete-message-btn cursor-pointer rounded-md bg-rose-500 p-1.5 text-sm font-medium text-white hover:bg-rose-700"
+        data-message-id="<%= message.id %>"
+        type="button"
+      >
+        <i class="size-5" data-lucide="trash-2"></i>
+      </button>
     </div>
     <% } %>
   </div>

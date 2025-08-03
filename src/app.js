@@ -64,7 +64,7 @@ app.post("/login-admin", indexController.loginAdminPost);
 app.get("/logout", indexController.logoutPost);
 app.get("/create-post", indexController.createPostGet);
 app.post("/create-post", indexController.createPostPost);
-app.get("/delete-message/:messageId", indexController.deleteMessageGet);
+app.post("/delete-message/:messageId", indexController.deleteMessagePost);
 
 const { PORT } = process.env;
 app.listen(PORT, () => {
