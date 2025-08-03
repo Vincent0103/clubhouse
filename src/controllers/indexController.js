@@ -1,4 +1,6 @@
+import passport from "passport";
 import db from "../db/queries";
+import { asteriskize } from "../utilities";
 
 const { body, validationResult } = require("express-validator");
 
@@ -31,8 +33,8 @@ const validateRegister = [
     .trim()
     .isLength({ min: 3, max: 255 })
     .withMessage(`Username ${lengthErr(3, 255)}`),
-  body("mail").trim().isEmail().withMessage(`Email ${emailErr}`),
-  body("pwd")
+  body("email").trim().isEmail().withMessage(`Email ${emailErr}`),
+  body("password")
     .trim()
     .isLength({ min: 8, max: 128 })
     .withMessage(`Password ${lengthErr(8, 128)}`)
@@ -44,14 +46,14 @@ const validateRegister = [
       `• ${digitErr}`,
       `• ${specialCharErr}`,
     ]),
-  body("confirmPwd")
+  body("confirmPassword")
     .trim()
     .custom((value, { req }) => {
       // If the main password is not valid don't handle errors in here
-      if (!req.body.pwd.match(passwordValidationRegex)) {
+      if (!req.body.password.match(passwordValidationRegex)) {
         return true;
       }
-      if (value !== req.body.pwd) {
+      if (value !== req.body.password) {
         throw new Error(`Passwords ${matchPasswordErr}`);
       }
       return true;
@@ -60,12 +62,18 @@ const validateRegister = [
 
 const indexController = (() => {
   const homepageGet = (req, res) => {
-    res.render("index");
+    console.log(req.user);
+    res.render("index", { user: req.user, asteriskize });
   };
 
   const loginGet = (req, res) => {
     res.render("login");
   };
+
+  const loginPost = passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
+  });
 
   const registerGet = (req, res) => {
     res.render("register");
@@ -73,21 +81,26 @@ const indexController = (() => {
 
   const registerPost = [
     validateRegister,
-    (req, res) => {
-      const errors = validationResult(req);
-      const { pwd, confirmPwd, ...formData } = req.body;
-      if (!errors.isEmpty()) {
-        return res.status(400).render("register", {
-          errors: errors.array(),
-          ...formData,
-        });
+    (req, res, next) => {
+      try {
+        const errors = validationResult(req);
+        const { password, confirmPassword, ...formData } = req.body;
+        if (!errors.isEmpty()) {
+          return res.status(400).render("register", {
+            errors: errors.array(),
+            ...formData,
+          });
+        }
+        db.createUser({ ...formData, password });
+        res.redirect("/");
+      } catch (err) {
+        console.error(err);
+        next(err);
       }
-      db.createUser({ ...formData, pwd });
-      res.redirect("/");
     },
   ];
 
-  return { loginGet, homepageGet, registerGet, registerPost };
+  return { loginGet, loginPost, homepageGet, registerGet, registerPost };
 })();
 
 export default indexController;

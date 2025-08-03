@@ -8,8 +8,8 @@ const db = (() => {
       firstName: first_name,
       lastName: last_name,
       username,
-      mail: email,
-      pwd: unhashedPassword,
+      email,
+      password: unhashedPassword,
     } = userData;
 
     const password = await bcrypt.hash(unhashedPassword, 10);
@@ -24,7 +24,32 @@ const db = (() => {
     }
   };
 
-  return { createUser };
+  const getUserByUsername = async (username) => {
+    const { data, error } = await supabase
+      .from("USER")
+      .select()
+      .eq("username", username);
+
+    if (error) {
+      console.error(`Error fetching user by username "${username}":`, error);
+      throw error;
+    }
+
+    return data[0];
+  };
+
+  const getUserById = async (id) => {
+    const { data, error } = await supabase.from("USER").select().eq("id", id);
+
+    if (error) {
+      console.error(`Error fetching user by id "${id}":`, error);
+      throw error;
+    }
+
+    return data[0];
+  };
+
+  return { createUser, getUserByUsername, getUserById };
 })();
 
 export default db;

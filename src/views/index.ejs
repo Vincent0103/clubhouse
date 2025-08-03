@@ -6,33 +6,73 @@
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mozilla+Headline:wght@200..700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mozilla+Headline:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
     <title>Homepage | The Clubhouse</title>
   </head>
   <body class="font-montserrat bg-rose-50">
-    <nav class=" z-20 border-b-1 border-rose-200 bg-white fixed top-0 w-full"><%- include("../views/partials/nav.ejs") %></nav>
-    <main class="top-[69px] relative">
-      <header class="relative flex flex-col gap-6 items-center justify-center bg-gradient-to-b from-white to-rose-50 pt-40 py-30">
-        <h1 class="text-6xl font-semibold text-center z-10">
-          Welcome to <span class="font-clubhouse text-rose-50 bg-rose-500"><i>The Clubhouse!</i></span>
+    <nav class="fixed top-0 z-20 w-full border-b-1 border-rose-200 bg-white">
+      <%- include("../views/partials/nav.ejs") %>
+    </nav>
+    <main class="relative top-[69px]">
+      <header
+        class="<%= !locals.user ? 'pt-40 pb-30' : 'pb-20 pt-30' %> relative flex flex-col items-center justify-center gap-6 bg-gradient-to-b from-white to-rose-50"
+      >
+        <% if (!locals.user) { %>
+        <h1 class="z-10 text-center text-6xl font-semibold">
+          Welcome to
+          <span class="font-clubhouse bg-rose-500 text-rose-50"
+            ><i>The Clubhouse!</i></span
+          >
         </h1>
-        <small class="text-3xl font-medium text-gray-600 z-10"><i>The home for many odinners &#59;&#41;</i></small>
+        <small class="z-10 text-3xl font-medium text-gray-600"
+          ><i>The home for many odinners &#59;&#41;</i></small
+        >
+        <% } else { %>
+        <h1 class="z-10 text-center text-6xl font-semibold">
+          Welcome back,
+          <span class="font-clubhouse text-nowrap text-ellipsis text-rose-900"
+            ><i><%= user.username %></i></span
+          >
+        </h1>
+        <% } %>
+
         <!-- Abstract dotted circles background -->
-        <img src="/imgs/circle-abstract-dotted-circles.png" alt="" class="absolute left-[300px] size-60 object-cover opacity-10 pointer-events-none">
-        <img src="/imgs/circle-abstract-dotted-circles.png" alt="" class="absolute right-[100px] -top-40 size-[500px] object-cover opacity-15 pointer-events-none">
-        <img src="/imgs/circle-abstract-dotted-circles.png" alt="" class="absolute left-0 top-60 size-[400px] object-cover opacity-15 pointer-events-none">
-        <img src="/imgs/circle-abstract-dotted-circles.png" alt="" class="absolute right-0 top-100 size-[400px] object-cover opacity-5 pointer-events-none">
+        <img
+          src="/imgs/circle-abstract-dotted-circles.png"
+          alt=""
+          class="pointer-events-none absolute left-[300px] size-60 object-cover opacity-10"
+        />
+        <img
+          src="/imgs/circle-abstract-dotted-circles.png"
+          alt=""
+          class="pointer-events-none absolute -top-40 right-[100px] size-[500px] object-cover opacity-15"
+        />
+        <img
+          src="/imgs/circle-abstract-dotted-circles.png"
+          alt=""
+          class="pointer-events-none absolute top-60 left-0 size-[400px] object-cover opacity-15"
+        />
+        <img
+          src="/imgs/circle-abstract-dotted-circles.png"
+          alt=""
+          class="pointer-events-none absolute top-100 right-0 size-[400px] object-cover opacity-5"
+        />
       </header>
-      <section class="flex flex-col items-center justify-center gap-10 my-10">
-        <div class="flex h-full items-center justify-center gap-3 text-rose-900">
+      <section class="my-10 flex flex-col items-center justify-center gap-10">
+        <div
+          class="flex h-full items-center justify-center gap-3 text-rose-900"
+        >
           <i class="size-7 animate-bounce" data-lucide="arrow-down"></i>
-          <h2 class="font-medium text-center text-xl">
+          <h2 class="text-center text-xl font-medium">
             Look for recent posts down here!
           </h2>
         </div>
-        <%- include("../views/partials/message.ejs") %>
-        <%- include("../views/partials/message.ejs") %>
-        <%- include("../views/partials/message.ejs") %>
+        <%- include("../views/partials/message.ejs", { asteriskize }) %> <%-
+        include("../views/partials/message.ejs", { asteriskize }) %> <%-
+        include("../views/partials/message.ejs", { asteriskize }) %>
       </section>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>
