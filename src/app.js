@@ -61,6 +61,8 @@ app.get("/login", indexController.loginGet);
 app.post("/login", indexController.loginPost);
 app.post("/login-club", indexController.loginClubPost);
 app.get("/logout", indexController.logoutPost);
+app.get("/create-post", indexController.createPostGet);
+app.post("/create-post", indexController.createPostPost);
 
 const { PORT } = process.env;
 app.listen(PORT, () => {

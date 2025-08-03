@@ -70,9 +70,8 @@
             Look for recent posts down here!
           </h2>
         </div>
-        <%- include("partials/message.ejs", { asteriskize }) %> <%-
-        include("partials/message.ejs", { asteriskize }) %> <%-
-        include("partials/message.ejs", { asteriskize }) %>
+        <% messages.forEach((message) => { %> <%-
+        include("partials/message.ejs", { message, asteriskize }) %> <% }); %>
       </section>
       <%- include("partials/modal.ejs"), { isRetrying } %>
     </main>

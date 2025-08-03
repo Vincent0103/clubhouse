@@ -1,10 +1,13 @@
 import passport from "passport";
 import db from "../db/queries";
+import { formatDistance } from "date-fns";
 import { asteriskize } from "../scripts/utilities";
 
 const { body, validationResult } = require("express-validator");
 
 const alphaErr = "must only contain letters.";
+const alphaNumericErr =
+  "can only contain letters, numbers, spaces and one of these characters (_-.'\"@#%&*,!?:;()[]).";
 const lengthErr = (min, max) => `must be between ${min} and ${max} characters.`;
 const emailErr = 'must be in valid format: "hello@example.com".';
 const lowerCaseErr = "have atleast one lowercase letter (a-z)";
@@ -32,7 +35,9 @@ const validateRegister = [
   body("username")
     .trim()
     .isLength({ min: 3, max: 255 })
-    .withMessage(`Username ${lengthErr(3, 255)}`),
+    .withMessage(`Username ${lengthErr(3, 255)}`)
+    .isAlphanumeric("en-US", { ignore: "_-" })
+    .withMessage(`Username ${alphaNumericErr}`),
   body("email").trim().isEmail().withMessage(`Email ${emailErr}`),
   body("password")
     .trim()
@@ -60,9 +65,36 @@ const validateRegister = [
     }),
 ];
 
+const validatePost = [
+  body("title")
+    .trim()
+    .isLength({ min: 3, max: 255 })
+    .withMessage(`Title ${lengthErr(3, 255)}`)
+    .isAlphanumeric("en-US", { ignore: "_- " })
+    .withMessage(`Title ${alphaNumericErr}`),
+  body("content")
+    .trim()
+    .isLength({ min: 10, max: 2500 })
+    .withMessage(`Content ${lengthErr(10, 2500)}`)
+    .isAlphanumeric("en-US", { ignore: "_- .'\"@#%&*,!?:;()[]" })
+    .withMessage(`Content ${alphaNumericErr}`),
+];
+
 const indexController = (() => {
-  const homepageGet = (req, res) => {
-    res.render("index", { user: req.user, asteriskize, isRetrying: false });
+  const homepageGet = async (req, res) => {
+    let messages = await db.getMessages();
+
+    messages = messages.map((message) => ({
+      ...message,
+      created_at: formatDistance(message.created_at, new Date()),
+    }));
+
+    res.render("index", {
+      user: req.user,
+      messages,
+      asteriskize,
+      isRetrying: false,
+    });
   };
 
   const loginGet = (req, res) => {
@@ -113,7 +145,7 @@ const indexController = (() => {
           });
         }
         db.createUser({ ...formData, password });
-        res.redirect("/");
+        res.redirect("/login");
       } catch (err) {
         console.error(err);
         next(err);
@@ -140,6 +172,39 @@ const indexController = (() => {
     }
   };
 
+  const createPostGet = (req, res) => {
+    if (req.isAuthenticated()) {
+      return res.render("createPost", { user: req.user, isRetrying: false });
+    }
+    res.redirect("/");
+  };
+
+  const createPostPost = [
+    validatePost,
+    async (req, res, next) => {
+      try {
+        const errors = validationResult(req);
+        const { title, content } = req.body;
+        if (!errors.isEmpty()) {
+          return res.status(401).render("createPost", {
+            errors: errors.array(),
+            isRetrying: false,
+            title,
+            content,
+          });
+        }
+
+        const userId = req.user.id;
+        console.log(userId);
+        await db.createMessage(userId, title, content);
+        res.redirect("/");
+      } catch (err) {
+        console.error(err);
+        next(err);
+      }
+    },
+  ];
+
   return {
     loginGet,
     loginPost,
@@ -148,6 +213,8 @@ const indexController = (() => {
     registerGet,
     registerPost,
     loginClubPost,
+    createPostGet,
+    createPostPost,
   };
 })();
 

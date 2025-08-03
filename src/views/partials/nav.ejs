@@ -27,18 +27,21 @@
     </li>
     <% } else { %>
     <li class="group">
-      <a href="/profile"
+      <a href="/create-post"
         ><button
           class="cursor-pointer rounded-md bg-rose-950 px-4 py-1.5 text-white shadow-xs transition-colors group-hover:bg-rose-800"
         >
-          Add Post
+          Create Post
         </button></a
       >
     </li>
     <li class="group relative">
       <div>
         <button class="ml-4 flex items-center gap-1 py-1">
-          <span>vinct</span><i data-lucide="chevron-down"></i>
+          <% if (user.is_member) { %>
+          <i class="mr-1 size-5 text-rose-500" data-lucide="user-star"></i>
+          <% } %>
+          <span><%= user.username %></span><i data-lucide="chevron-down"></i>
         </button>
       </div>
       <div>
@@ -51,10 +54,14 @@
             <li>
               <button
                 id="join-club-btn"
-                class="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left text-sm font-medium text-rose-500 hover:bg-rose-50"
+                class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-sm font-medium text-rose-500 <%= !user.is_member ? "hover:bg-rose-50 cursor-pointer" : "" %>"
               >
+                <% if (!user.is_member) { %>
                 <i class="size-5" data-lucide="users-round"></i>
-                <span>Join the club</span>
+                  <span>Join the club</span>
+                <% } else { %>
+                  <span>Club member</span>
+                <% } %>
               </button>
             </li>
             <li>

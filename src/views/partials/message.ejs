@@ -9,15 +9,15 @@
     </div>
     <div>
       <div class="font-semibold text-rose-900">
-        <%= locals.user ? "Vincent" : asteriskize("Vincent") %>
+        <%= locals.user ? message.USER.first_name :
+        asteriskize(message.USER.first_name) %>
       </div>
       <div class="text-sm text-gray-500">
-        <%= locals.user ? "@vinct" : `${asteriskize("@vinct")}` %>
+        <%= locals.user ? `@${message.USER.username}` :
+        `@${asteriskize(message.USER.username)}` %> • <%= message.created_at %>
       </div>
     </div>
   </div>
-  <h2 class="text-lg font-semibold text-rose-900">Why crocodiles hurt?</h2>
-  <p class="text-gray-700">
-    most likely they got tons of teeth and yea they're sharp and stuff.
-  </p>
+  <h2 class="text-lg font-semibold text-rose-900"><%= message.title %></h2>
+  <p class="text-gray-700"><%= message.content %></p>
 </section>
