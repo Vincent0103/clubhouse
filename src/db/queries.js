@@ -49,7 +49,22 @@ const db = (() => {
     return data[0];
   };
 
-  return { createUser, getUserByUsername, getUserById };
+  const grantClubMemberUser = async (id) => {
+    const { error } = await supabase
+      .from("USER")
+      .update({ is_member: true })
+      .eq("id", id);
+
+    if (error) {
+      console.error(
+        `Error updating user of id ${id} could not grant them member of the club:`,
+        error,
+      );
+      throw error;
+    }
+  };
+
+  return { createUser, getUserByUsername, getUserById, grantClubMemberUser };
 })();
 
 export default db;

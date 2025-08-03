@@ -74,7 +74,7 @@
         include("partials/message.ejs", { asteriskize }) %> <%-
         include("partials/message.ejs", { asteriskize }) %>
       </section>
-      <%- include("partials/modal.ejs") %>
+      <%- include("partials/modal.ejs"), { isRetrying } %>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -83,21 +83,27 @@
     <script>
       window.addEventListener("DOMContentLoaded", () => {
         const joinClubPopup = document.getElementById("join-club-popup");
-        const joinClubButton = document.getElementById("join-club-btn");
+        const joinClubBtn = document.getElementById("join-club-btn");
+        const modalCloseBtn = document.getElementById("modal-close-btn");
 
         // Show the modal
         const showModal = () => {
-          joinClubPopup.classList.remove("hidden");
-          joinClubPopup.classList.add("flex");
+          joinClubPopup.classList.remove("opacity-0");
+          joinClubPopup.classList.remove("pointer-events-none");
+          joinClubPopup.classList.add("opacity-100");
+          joinClubPopup.classList.add("pointer-events-auto");
         };
 
         // Hide the modal
         const hideModal = () => {
-          joinClubPopup.classList.add("hidden");
-          joinClubPopup.classList.remove("flex");
+          joinClubPopup.classList.remove("opacity-100");
+          joinClubPopup.classList.remove("pointer-events-auto");
+          joinClubPopup.classList.add("opacity-0");
+          joinClubPopup.classList.add("pointer-events-none");
         };
 
-        joinClubButton.addEventListener("click", showModal);
+        joinClubBtn.addEventListener("click", showModal);
+        modalCloseBtn.addEventListener("click", hideModal);
       });
     </script>
   </body>

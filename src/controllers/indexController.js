@@ -62,7 +62,7 @@ const validateRegister = [
 
 const indexController = (() => {
   const homepageGet = (req, res) => {
-    res.render("index", { user: req.user, asteriskize });
+    res.render("index", { user: req.user, asteriskize, isRetrying: false });
   };
 
   const loginGet = (req, res) => {
@@ -121,6 +121,25 @@ const indexController = (() => {
     },
   ];
 
+  const loginClubPost = async (req, res, next) => {
+    try {
+      const { SECRET_PASSCODE } = process.env;
+      const { passcode } = req.body;
+      if (passcode.trim().toLowerCase() === SECRET_PASSCODE.toLowerCase()) {
+        await db.grantClubMemberUser(req.user.id);
+      } else {
+        res
+          .status(401)
+          .render("index", { user: req.user, asteriskize, isRetrying: true });
+        return;
+      }
+      res.redirect("/");
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  };
+
   return {
     loginGet,
     loginPost,
@@ -128,6 +147,7 @@ const indexController = (() => {
     homepageGet,
     registerGet,
     registerPost,
+    loginClubPost,
   };
 })();
 
