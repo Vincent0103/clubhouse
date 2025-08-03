@@ -23,14 +23,15 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await db.getUserByUsername(username);
+      const errorMsg = "Invalid username or password.";
 
       if (!user) {
-        return done(null, false, { message: "Incorrect username." });
+        return done(null, false, { message: errorMsg });
       }
 
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
-        return done(null, false, { message: "Incorrect password." });
+        return done(null, false, { message: errorMsg });
       }
       return done(null, user);
     } catch (err) {
@@ -58,6 +59,7 @@ app.get("/register", indexController.registerGet);
 app.post("/register", indexController.registerPost);
 app.get("/login", indexController.loginGet);
 app.post("/login", indexController.loginPost);
+app.get("/logout", indexController.logoutPost);
 
 const { PORT } = process.env;
 app.listen(PORT, () => {

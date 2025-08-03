@@ -14,7 +14,7 @@
   </head>
   <body class="font-montserrat">
     <nav class="fixed top-0 z-10 w-full border-b-1 border-rose-200 bg-white">
-      <%- include("../views/partials/nav.ejs") %>
+      <%- include("partials/nav.ejs") %>
     </nav>
     <main
       class="flex min-h-screen w-full items-center justify-center pt-[69px]"
@@ -28,9 +28,10 @@
           <h1 class="font-clubhouse text-2xl font-semibold">
             Login to your account
           </h1>
-          <small class="text-sm font-medium text-gray-600"
-            >Let's hope you didn't forget your password...</small
-          >
+          <small class="text-sm font-medium text-gray-600">Let's hope you didn't forget your password...</small>
+          <div class="mt-3">
+            <%- include("partials/errors.ejs") %>
+          </div>
         </div>
         <div class="flex flex-col gap-2.5 font-medium">
           <label class="text-sm" for="username">Username</label>
@@ -41,6 +42,7 @@
             maxlength="255"
             id="username"
             name="username"
+            value="<%= locals.username || "" %>"
             required
           />
         </div>
@@ -51,6 +53,8 @@
             type="password"
             id="password"
             name="password"
+            minlength="3"
+            maxlength="128"
             required
           />
         </div>

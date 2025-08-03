@@ -1,6 +1,6 @@
 import passport from "passport";
 import db from "../db/queries";
-import { asteriskize } from "../utilities";
+import { asteriskize } from "../scripts/utilities";
 
 const { body, validationResult } = require("express-validator");
 
@@ -62,20 +62,41 @@ const validateRegister = [
 
 const indexController = (() => {
   const homepageGet = (req, res) => {
-    console.log(req.user);
     res.render("index", { user: req.user, asteriskize });
   };
 
   const loginGet = (req, res) => {
+    if (req.isAuthenticated()) return res.redirect("/");
     res.render("login");
   };
 
-  const loginPost = passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
-  });
+  const loginPost = [
+    (req, res, next) => {
+      passport.authenticate("local", (err, user, info) => {
+        if (err) return next(err);
+        if (!user) {
+          return res.status(401).render("login", {
+            errors: [{ msg: info.message }],
+            username: req.body.username,
+          });
+        }
+        req.logIn(user, (err) => {
+          if (err) return next(err);
+          return res.redirect("/");
+        });
+      })(req, res, next);
+    },
+  ];
+
+  const logoutPost = (req, res, next) => {
+    req.logout((err) => {
+      if (err) return next(err);
+      res.redirect("/");
+    });
+  };
 
   const registerGet = (req, res) => {
+    if (req.isAuthenticated()) return res.redirect("/");
     res.render("register");
   };
 
@@ -86,7 +107,7 @@ const indexController = (() => {
         const errors = validationResult(req);
         const { password, confirmPassword, ...formData } = req.body;
         if (!errors.isEmpty()) {
-          return res.status(400).render("register", {
+          return res.status(401).render("register", {
             errors: errors.array(),
             ...formData,
           });
@@ -100,7 +121,14 @@ const indexController = (() => {
     },
   ];
 
-  return { loginGet, loginPost, homepageGet, registerGet, registerPost };
+  return {
+    loginGet,
+    loginPost,
+    logoutPost,
+    homepageGet,
+    registerGet,
+    registerPost,
+  };
 })();
 
 export default indexController;

@@ -5,7 +5,7 @@
       The Clubhouse
     </h1>
   </a>
-  <ul class="flex gap-2 font-medium">
+  <ul class="flex items-center gap-2 font-medium">
     <% if (!locals.user) { %>
     <li class="group">
       <a href="/login"
@@ -35,14 +35,41 @@
         </button></a
       >
     </li>
-    <li class="group">
-      <a href="/logout"
-        ><button
-          class="cursor-pointer rounded-md bg-rose-950 px-4 py-1.5 text-white shadow-xs transition-colors group-hover:bg-rose-800"
+    <li class="group relative">
+      <div>
+        <button class="ml-4 flex items-center gap-1 py-1">
+          <span>vinct</span><i data-lucide="chevron-down"></i>
+        </button>
+      </div>
+      <div>
+        <div
+          class="pointer-events-none absolute top-8 right-0 box-border w-[200px] py-2 pr-2 opacity-0 transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100"
         >
-          Join The Club
-        </button></a
-      >
+          <ul
+            class="w-[200px] rounded-md border-1 border-gray-200 bg-white p-1.5 shadow-sm"
+          >
+            <li>
+              <button
+                id="join-club-btn"
+                class="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left text-sm font-medium text-rose-500 hover:bg-rose-50"
+              >
+                <i class="size-5" data-lucide="users-round"></i>
+                <span>Join the club</span>
+              </button>
+            </li>
+            <li>
+              <a href="/logout"
+                ><button
+                  class="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left text-sm font-medium hover:bg-gray-100"
+                >
+                  <i class="size-5" data-lucide="log-out"></i>
+                  <span>Logout</span>
+                </button></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </li>
     <% } %>
   </ul>

@@ -1,0 +1,36 @@
+<div
+  id="join-club-popup"
+  class="bg-opacity-50 fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-md"
+>
+  <div class="flex min-h-screen items-center justify-center p-4">
+    <div class="w-sm max-w-sm rounded-lg bg-white p-6">
+      <form class="flex flex-col" action="/log-club">
+        <h3 class="font-clubhouse mb-1 text-xl font-semibold">
+          Enter the secret passcode
+        </h3>
+        <small class="mb-4 font-medium text-gray-600"
+          >(hint: chainsaw dog)</small
+        >
+        <input
+          type="text"
+          name="passcode"
+          class="mb-4 w-full rounded-md border-1 border-gray-200 px-3 py-2 text-sm shadow-xs"
+          required
+        />
+        <div class="flex justify-end gap-2">
+          <button
+            class="cursor-pointer rounded-md bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="cursor-pointer rounded-md bg-rose-950 px-4 py-2 font-medium text-white hover:bg-rose-800"
+          >
+            Confirm
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

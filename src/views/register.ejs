@@ -14,7 +14,7 @@
   </head>
   <body class="font-montserrat">
     <nav class="fixed top-0 z-10 w-full border-b-1 border-rose-200 bg-white">
-      <%- include("../views/partials/nav.ejs") %>
+      <%- include("partials/nav.ejs") %>
     </nav>
     <main
       class="flex min-h-screen w-full items-center justify-center pt-[69px]"
@@ -92,20 +92,24 @@
             type="password"
             id="password"
             name="password"
+            minlength="3"
+            maxlength="128"
             required
-          />
-        </div>
-        <div class="flex flex-col gap-2.5 font-medium">
-          <label class="text-sm" for="confirmPassword">Confirm Password</label>
-          <input
+            />
+          </div>
+          <div class="flex flex-col gap-2.5 font-medium">
+            <label class="text-sm" for="confirmPassword">Confirm Password</label>
+            <input
             class="rounded-md border-1 border-gray-200 px-3 py-2 text-sm shadow-xs"
             type="password"
             id="confirmPassword"
             name="confirmPassword"
+            minlength="3"
+            maxlength="128"
             required
-          />
-        </div>
-        <button
+            />
+          </div>
+          <button
           class="mt-2 cursor-pointer rounded-md bg-rose-950 py-1.5 font-medium text-white transition-colors hover:bg-rose-800"
           type="submit"
         >

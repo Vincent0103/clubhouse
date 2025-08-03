@@ -14,7 +14,7 @@
   </head>
   <body class="font-montserrat bg-rose-50">
     <nav class="fixed top-0 z-20 w-full border-b-1 border-rose-200 bg-white">
-      <%- include("../views/partials/nav.ejs") %>
+      <%- include("partials/nav.ejs") %>
     </nav>
     <main class="relative top-[69px]">
       <header
@@ -70,14 +70,35 @@
             Look for recent posts down here!
           </h2>
         </div>
-        <%- include("../views/partials/message.ejs", { asteriskize }) %> <%-
-        include("../views/partials/message.ejs", { asteriskize }) %> <%-
-        include("../views/partials/message.ejs", { asteriskize }) %>
+        <%- include("partials/message.ejs", { asteriskize }) %> <%-
+        include("partials/message.ejs", { asteriskize }) %> <%-
+        include("partials/message.ejs", { asteriskize }) %>
       </section>
+      <%- include("partials/modal.ejs") %>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();
+    </script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const joinClubPopup = document.getElementById("join-club-popup");
+        const joinClubButton = document.getElementById("join-club-btn");
+
+        // Show the modal
+        const showModal = () => {
+          joinClubPopup.classList.remove("hidden");
+          joinClubPopup.classList.add("flex");
+        };
+
+        // Hide the modal
+        const hideModal = () => {
+          joinClubPopup.classList.add("hidden");
+          joinClubPopup.classList.remove("flex");
+        };
+
+        joinClubButton.addEventListener("click", showModal);
+      });
     </script>
   </body>
 </html>
