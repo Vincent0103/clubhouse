@@ -1,0 +1,43 @@
+<div
+  id="admin-popup"
+  class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/50 <%= !locals.isRetryingAdmin ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto" %> backdrop-blur-md transition-opacity"
+>
+  <div class="flex min-h-screen items-center justify-center p-4">
+    <div class="w-sm max-w-sm rounded-lg bg-zinc-900 text-white p-6 relative overflow-hidden">
+      <!-- Background image with lowered opacity -->
+      <div class="absolute inset-0 opacity-15 blur-lg pointer-events-none" style="background-image: url('/css/bg-admin.jpg'); background-size: cover; background-position: center;"></div>
+      <!-- Content overlay -->
+      <div class="relative z-10">
+        <form class="flex flex-col" action="/login-admin" method="POST">
+        <h3 class="font-clubhouse mb-1 text-xl font-semibold">
+          Enter the secret passcode
+        </h3>
+        <small class="mb-4 font-medium text-gray-400">hint: The All</small>
+        <input
+          type="text"
+          id="passcode"
+          name="passcode"
+          aria-label="Passcode input"
+          class="mb-4 w-full rounded-md border-1 border-zinc-600 px-3 py-2 text-sm shadow-xs"
+          required
+        />
+        <div class="flex justify-end gap-2">
+          <button
+            type="button"
+            id="admin-modal-close-btn"
+            class="cursor-pointer rounded-md bg-zinc-700 px-4 py-2 text-white font-medium hover:bg-zinc-600"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="cursor-pointer rounded-md bg-gray-200 px-4 py-2 font-medium text-black hover:bg-gray-300"
+          >
+            Confirm
+          </button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

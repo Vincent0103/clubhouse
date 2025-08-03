@@ -64,6 +64,21 @@ const db = (() => {
     }
   };
 
+  const grantAdminUser = async (id) => {
+    const { error } = await supabase
+      .from("USER")
+      .update({ is_admin: true })
+      .eq("id", id);
+
+    if (error) {
+      console.error(
+        `Error updating user of id ${id} could not grant them admin: `,
+        error,
+      );
+      throw error;
+    }
+  };
+
   const getMessages = async () => {
     const { data, error } = await supabase
       .from("MESSAGE")
@@ -94,6 +109,7 @@ const db = (() => {
     getUserByUsername,
     getUserById,
     grantClubMemberUser,
+    grantAdminUser,
     getMessages,
     createMessage,
   };

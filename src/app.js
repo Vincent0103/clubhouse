@@ -60,6 +60,7 @@ app.post("/register", indexController.registerPost);
 app.get("/login", indexController.loginGet);
 app.post("/login", indexController.loginPost);
 app.post("/login-club", indexController.loginClubPost);
+app.post("/login-admin", indexController.loginAdminPost);
 app.get("/logout", indexController.logoutPost);
 app.get("/create-post", indexController.createPostGet);
 app.post("/create-post", indexController.createPostPost);

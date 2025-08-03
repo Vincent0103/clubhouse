@@ -1,6 +1,6 @@
 <div
-  id="join-club-popup"
-  class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/50 <%= !locals.isRetrying ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto" %> backdrop-blur-md transition-opacity"
+  id="club-popup"
+  class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/50 <%= !locals.isRetryingClub ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto" %> backdrop-blur-md transition-opacity"
 >
   <div class="flex min-h-screen items-center justify-center p-4">
     <div class="w-sm max-w-sm rounded-lg bg-white p-6">
@@ -20,7 +20,7 @@
         <div class="flex justify-end gap-2">
           <button
             type="button"
-            id="modal-close-btn"
+            id="club-modal-close-btn"
             class="cursor-pointer rounded-md bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300"
           >
             Close

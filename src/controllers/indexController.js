@@ -1,7 +1,7 @@
 import passport from "passport";
 import db from "../db/queries";
 import { formatDistance } from "date-fns";
-import { asteriskize } from "../scripts/utilities";
+import { asteriskize, formatMessages } from "../scripts/utilities";
 
 const { body, validationResult } = require("express-validator");
 
@@ -83,17 +83,12 @@ const validatePost = [
 const indexController = (() => {
   const homepageGet = async (req, res) => {
     let messages = await db.getMessages();
-
-    messages = messages.map((message) => ({
-      ...message,
-      created_at: formatDistance(message.created_at, new Date()),
-    }));
+    messages = formatMessages(messages);
 
     res.render("index", {
       user: req.user,
       messages,
       asteriskize,
-      isRetrying: false,
     });
   };
 
@@ -155,14 +150,47 @@ const indexController = (() => {
 
   const loginClubPost = async (req, res, next) => {
     try {
-      const { SECRET_PASSCODE } = process.env;
+      const { SECRET_CLUB_PASSCODE } = process.env;
       const { passcode } = req.body;
-      if (passcode.trim().toLowerCase() === SECRET_PASSCODE.toLowerCase()) {
+      if (
+        passcode.trim().toLowerCase() === SECRET_CLUB_PASSCODE.toLowerCase()
+      ) {
         await db.grantClubMemberUser(req.user.id);
       } else {
-        res
-          .status(401)
-          .render("index", { user: req.user, asteriskize, isRetrying: true });
+        let messages = await db.getMessages();
+        messages = formatMessages(messages);
+
+        res.status(401).render("index", {
+          user: req.user,
+          messages,
+          asteriskize,
+          isRetryingClub: true,
+        });
+        return;
+      }
+      res.redirect("/");
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  };
+
+  const loginAdminPost = async (req, res, next) => {
+    try {
+      const { SECRET_ADMIN_PASSCODE } = process.env;
+      const { passcode } = req.body;
+      if (passcode === SECRET_ADMIN_PASSCODE) {
+        await db.grantAdminUser(req.user.id);
+      } else {
+        let messages = await db.getMessages();
+        messages = formatMessages(messages);
+
+        res.status(401).render("index", {
+          user: req.user,
+          messages,
+          asteriskize,
+          isRetryingAdmin: true,
+        });
         return;
       }
       res.redirect("/");
@@ -174,7 +202,7 @@ const indexController = (() => {
 
   const createPostGet = (req, res) => {
     if (req.isAuthenticated()) {
-      return res.render("createPost", { user: req.user, isRetrying: false });
+      return res.render("createPost", { user: req.user });
     }
     res.redirect("/");
   };
@@ -188,7 +216,6 @@ const indexController = (() => {
         if (!errors.isEmpty()) {
           return res.status(401).render("createPost", {
             errors: errors.array(),
-            isRetrying: false,
             title,
             content,
           });
@@ -213,6 +240,7 @@ const indexController = (() => {
     registerGet,
     registerPost,
     loginClubPost,
+    loginAdminPost,
     createPostGet,
     createPostPost,
   };

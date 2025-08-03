@@ -73,7 +73,10 @@
         <% messages.forEach((message) => { %> <%-
         include("partials/message.ejs", { message, asteriskize }) %> <% }); %>
       </section>
-      <%- include("partials/modal.ejs"), { isRetrying } %>
+      <%- include("partials/clubModal.ejs"), { isRetryingClub:
+      locals.isRetryingClub || false } %> <%-
+      include("partials/adminModal.ejs"), { isRetryingAdmin:
+      locals.isRetryingAdmin || false } %>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -81,28 +84,49 @@
     </script>
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-        const joinClubPopup = document.getElementById("join-club-popup");
+        const clubPopup = document.getElementById("club-popup");
+        const adminPopup = document.getElementById("admin-popup");
         const joinClubBtn = document.getElementById("join-club-btn");
-        const modalCloseBtn = document.getElementById("modal-close-btn");
+        const adminBtn = document.getElementById("admin-btn");
+        const clubModalCloseBtn = document.getElementById(
+          "club-modal-close-btn",
+        );
+        const adminModalCloseBtn = document.getElementById(
+          "admin-modal-close-btn",
+        );
 
         // Show the modal
-        const showModal = () => {
-          joinClubPopup.classList.remove("opacity-0");
-          joinClubPopup.classList.remove("pointer-events-none");
-          joinClubPopup.classList.add("opacity-100");
-          joinClubPopup.classList.add("pointer-events-auto");
+        const showModal = (popup) => {
+          popup.classList.remove("opacity-0");
+          popup.classList.remove("pointer-events-none");
+          popup.classList.add("opacity-100");
+          popup.classList.add("pointer-events-auto");
         };
 
         // Hide the modal
-        const hideModal = () => {
-          joinClubPopup.classList.remove("opacity-100");
-          joinClubPopup.classList.remove("pointer-events-auto");
-          joinClubPopup.classList.add("opacity-0");
-          joinClubPopup.classList.add("pointer-events-none");
+        const hideModal = (popup) => {
+          popup.classList.remove("opacity-100");
+          popup.classList.remove("pointer-events-auto");
+          popup.classList.add("opacity-0");
+          popup.classList.add("pointer-events-none");
         };
 
-        joinClubBtn.addEventListener("click", showModal);
-        modalCloseBtn.addEventListener("click", hideModal);
+        if (joinClubBtn) {
+          joinClubBtn.addEventListener("click", () => showModal(clubPopup));
+        }
+        if (clubModalCloseBtn) {
+          clubModalCloseBtn.addEventListener("click", () =>
+            hideModal(clubPopup),
+          );
+        }
+        if (adminBtn) {
+          adminBtn.addEventListener("click", () => showModal(adminPopup));
+        }
+        if (adminModalCloseBtn) {
+          adminModalCloseBtn.addEventListener("click", () =>
+            hideModal(adminPopup),
+          );
+        }
       });
     </script>
   </body>
