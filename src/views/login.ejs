@@ -17,7 +17,7 @@
       <%- include("partials/nav.ejs") %>
     </nav>
     <main
-      class="flex min-h-screen w-full items-center justify-center pt-[69px]"
+      class="flex min-h-screen mx-2 items-center justify-center pt-[69px]"
     >
       <form
         action="/login"
@@ -66,8 +66,11 @@
         </button>
       </form>
     </main>
-    <footer><%- include("partials/footer.ejs") %></footer>
+    <footer class="flex justify-center">
+      <%- include("partials/footer.ejs") %>
+    </footer>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/js/index.js"></script>
     <script>
       lucide.createIcons();
     </script>

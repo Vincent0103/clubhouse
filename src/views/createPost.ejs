@@ -69,8 +69,11 @@
       include("partials/adminModal.ejs"), { isRetryingAdmin:
       locals.isRetryingAdmin || false } %>
     </main>
-    <footer><%- include("partials/footer.ejs") %></footer>
+    <footer class="flex justify-center">
+      <%- include("partials/footer.ejs") %>
+    </footer>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/js/index.js"></script>
     <script>
       lucide.createIcons();
     </script>

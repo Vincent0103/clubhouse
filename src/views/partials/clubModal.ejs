@@ -3,7 +3,7 @@
   class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/50 <%= !locals.isRetryingClub ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto" %> backdrop-blur-md transition-opacity"
 >
   <div class="flex min-h-screen items-center justify-center p-4">
-    <div class="w-sm max-w-sm rounded-lg bg-white p-6">
+    <div class="w-sm max-w-[calc(100vw-1rem)] rounded-lg bg-white p-6">
       <form class="flex flex-col" action="/login-club" method="POST">
         <h3 class="font-clubhouse mb-1 text-xl font-semibold">
           Enter the secret passcode

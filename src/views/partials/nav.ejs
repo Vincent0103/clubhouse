@@ -1,11 +1,25 @@
-<div class="mx-44 flex items-center justify-between gap-4 p-4">
+<div
+  class="mx-44 flex items-center justify-between gap-4 p-4 max-xl:mx-24 max-md:mx-12 max-sm:mx-4"
+>
   <a href="/" class="flex items-center gap-3">
     <i class="size-7 text-rose-500" data-lucide="person-standing"></i>
     <h1 class="font-clubhouse text-xl font-semibold text-rose-950">
       The Clubhouse
     </h1>
   </a>
-  <ul class="flex items-center gap-2 font-medium">
+
+  <!-- Mobile Menu Button -->
+  <button
+    id="mobile-menu-btn"
+    class="flex items-center justify-center rounded-md p-2 transition-colors hover:bg-gray-100 md:hidden"
+    aria-label="Toggle mobile menu"
+  >
+    <i id="menu-icon" class="size-6" data-lucide="menu"></i>
+    <i id="close-icon" class="hidden size-6" data-lucide="x"></i>
+  </button>
+
+  <!-- Desktop Menu -->
+  <ul class="hidden items-center gap-2 font-medium md:flex">
     <% if (!locals.user) { %>
     <li class="group">
       <a href="/login"
@@ -106,4 +120,110 @@
     </li>
     <% } %>
   </ul>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="pointer-events-none fixed inset-0 z-20 max-w-screen opacity-0 transition-opacity duration-300 md:hidden"
+  >
+    <!-- Background overlay -->
+    <div class="absolute inset-0 bg-black/70"></div>
+
+    <!-- Menu panel -->
+    <div
+      class="absolute top-0 right-0 h-full w-64 translate-x-full transform bg-white shadow-lg transition-transform duration-300"
+    >
+      <div class="p-4">
+        <div class="mb-6 flex items-center justify-between">
+          <h2 class="font-clubhouse text-lg font-semibold text-rose-950">
+            Menu
+          </h2>
+          <button
+            id="mobile-menu-close"
+            class="rounded-md p-2 transition-colors hover:bg-gray-100"
+          >
+            <i class="size-5 text-gray-700" data-lucide="x"></i>
+          </button>
+        </div>
+
+        <nav class="space-y-3 font-medium">
+          <% if (!locals.user) { %>
+            <a
+              href="/login"
+              class="flex w-full items-center rounded-md bg-zinc-100 p-3 text-left transition-colors hover:bg-zinc-200"
+            >
+              <i class="mr-2 size-4" data-lucide="log-in"></i>
+              <span>Login</span>
+            </a>
+            <a
+              href="/register"
+              class="flex w-full items-center rounded-md bg-rose-950 p-3 text-left text-white transition-colors hover:bg-rose-800"
+            >
+              <i class="mr-2 size-4" data-lucide="user-plus"></i>
+              <span>Register</span>
+            </a>
+          <% } else { %>
+            <!-- User info -->
+            <% if (user.is_admin) { %>
+              <div class="mb-4 rounded-md border-1 border-zinc-950 bg-zinc-900 text-white p-3">
+            <% } else if (user.is_member) { %>
+              <div class="mb-4 rounded-md border-1 border-rose-200 bg-rose-50 p-3">
+            <% } else { %>
+              <div class="mb-4 rounded-md border-1 border-zinc-200 bg-zinc-50 p-3">
+            <% } %>
+              <div class="flex items-center gap-2">
+                <% if (user.is_admin) { %>
+                <i class="size-4" data-lucide="shield-user"></i>
+                <% } else if (user.is_member) { %>
+                <i class="size-4 text-rose-500" data-lucide="user-star"></i>
+                <% } else { %>
+                <i class="size-4" data-lucide="user"></i>
+                <% } %>
+                <span class="font-medium"><%= user.username %></span>
+              </div>
+              <% if (user.is_admin) { %>
+              <p class="mt-1 text-xs text-zinc-400">Admin</p>
+              <% } else if (user.is_member) { %>
+              <p class="mt-1 text-xs text-rose-600">Club Member</p>
+              <% } %>
+            </div>
+
+            <a
+              href="/create-post"
+              class="flex w-full items-center rounded-md bg-rose-950 p-3 text-left text-white transition-colors hover:bg-rose-800"
+            >
+              <i class="mr-2 size-4" data-lucide="plus"></i>
+              <span>Create Post</span>
+            </a>
+
+            <% if (!user.is_admin) { %>
+              <button
+                id="mobile-admin-btn"
+                class="flex w-full items-center rounded-md bg-black p-3 text-left text-white transition-colors hover:bg-zinc-800"
+              >
+                <i class="mr-2 size-4" data-lucide="shield-user"></i>
+                <span>Admin</span>
+              </button>
+            <% } %> <% if (!user.is_admin && !user.is_member) { %>
+              <button
+                id="mobile-join-club-btn"
+                class="flex w-full items-center rounded-md p-3 text-left text-rose-500 transition-colors hover:bg-rose-50 mb-0"
+              >
+                <i class="mr-2 size-4" data-lucide="users-round"></i>
+                <span>Join the club</span>
+              </button>
+            <% } %>
+
+          <a
+            href="/logout"
+            class="flex w-full items-center rounded-md p-3 text-left transition-colors hover:bg-gray-100"
+          >
+            <i class="mr-2 size-4" data-lucide="log-out"></i>
+            <span>Logout</span>
+          </a>
+          <% } %>
+        </nav>
+      </div>
+    </div>
+  </div>
 </div>

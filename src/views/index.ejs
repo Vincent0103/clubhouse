@@ -13,22 +13,26 @@
     <title>Homepage | The Clubhouse</title>
   </head>
   <body class="font-montserrat bg-rose-50">
-    <nav class="fixed top-0 z-20 w-full border-b-1 border-rose-200 bg-white">
+    <nav
+      class="fixed top-0 z-20 w-full border-b-1 border-rose-200 bg-white max-md:w-screen"
+    >
       <%- include("partials/nav.ejs") %>
     </nav>
     <div class="relative top-[69px]">
-      <main>
+      <main class="mx-2 overflow-hidden">
         <header
-          class="<%= !locals.user ? 'pt-40 pb-30' : 'pb-20 pt-30' %> relative flex flex-col items-center justify-center gap-6 bg-gradient-to-b from-white to-rose-50"
+          class="<%= !locals.user ? 'pt-40 pb-30' : 'pb-20 pt-30' %> relative flex flex-col items-center justify-center gap-5 bg-gradient-to-b from-white to-rose-50 max-sm:gap-3"
         >
           <% if (!locals.user) { %>
-          <h1 class="z-10 text-center text-6xl font-semibold">
+          <h1
+            class="z-10 text-center text-6xl leading-20 font-semibold max-sm:text-4xl max-sm:leading-12"
+          >
             Welcome to
-            <span class="font-clubhouse bg-rose-500 text-rose-50"
+            <span class="font-clubhouse bg-rose-500 text-nowrap text-rose-50"
               ><i>The Clubhouse!</i></span
             >
           </h1>
-          <small class="z-10 text-3xl font-medium text-gray-600"
+          <small class="z-10 text-3xl font-medium text-gray-600 max-sm:text-xl"
             ><i>The home for many odinners &#59;&#41;</i></small
           >
           <% } else { %>
@@ -44,17 +48,17 @@
           <img
             src="/imgs/circle-abstract-dotted-circles.png"
             alt=""
-            class="pointer-events-none absolute left-[300px] size-60 object-cover opacity-10"
+            class="pointer-events-none absolute left-[300px] size-60 object-cover opacity-10 max-lg:size-40"
           />
           <img
             src="/imgs/circle-abstract-dotted-circles.png"
             alt=""
-            class="pointer-events-none absolute -top-40 right-[100px] size-[500px] object-cover opacity-15"
+            class="pointer-events-none absolute -top-40 right-[100px] size-[500px] object-cover opacity-15 max-lg:size-[300px]"
           />
           <img
             src="/imgs/circle-abstract-dotted-circles.png"
             alt=""
-            class="pointer-events-none absolute top-60 left-0 size-[400px] object-cover opacity-15"
+            class="pointer-events-none absolute top-60 left-0 size-[400px] object-cover opacity-15 max-lg:size-[250px]"
           />
           <img
             src="/imgs/circle-abstract-dotted-circles.png"
@@ -81,7 +85,9 @@
         include("partials/adminModal.ejs"), { isRetryingAdmin:
         locals.isRetryingAdmin || false } %>
       </main>
-      <footer><%- include("partials/footer.ejs") %></footer>
+      <footer class="flex justify-center">
+        <%- include("partials/footer.ejs") %>
+      </footer>
     </div>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script type="module" src="/js/index.js"></script>
