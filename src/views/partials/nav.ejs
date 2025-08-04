@@ -57,7 +57,7 @@
           <% } else if (user.is_member) { %>
           <i class="mr-1 size-5 text-rose-500" data-lucide="user-star"></i>
           <% } %>
-          <span><%= user.username %></span><i data-lucide="chevron-down"></i>
+          <span class="truncate max-w-24"><%= user.username %></span><i data-lucide="chevron-down"></i>
         </button>
       </div>
       <div>
@@ -179,7 +179,7 @@
                 <% } else { %>
                 <i class="size-4" data-lucide="user"></i>
                 <% } %>
-                <span class="font-medium"><%= user.username %></span>
+                <span class="font-medium truncate w-full"><%= user.username %></span>
               </div>
               <% if (user.is_admin) { %>
               <p class="mt-1 text-xs text-zinc-400">Admin</p>

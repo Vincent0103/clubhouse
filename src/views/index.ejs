@@ -25,7 +25,7 @@
         >
           <% if (!locals.user) { %>
           <h1
-            class="z-10 text-center text-6xl leading-20 font-semibold max-sm:text-4xl max-sm:leading-12"
+            class="z-10 mx-4 text-center text-6xl leading-20 font-semibold max-sm:text-4xl max-sm:leading-12"
           >
             Welcome to
             <span class="font-clubhouse bg-rose-500 text-nowrap text-rose-50"
@@ -36,11 +36,13 @@
             ><i>The home for many odinners &#59;&#41;</i></small
           >
           <% } else { %>
-          <h1 class="z-10 text-center text-6xl font-semibold">
-            Welcome back,
-            <span class="font-clubhouse text-nowrap text-ellipsis text-rose-900"
-              ><i><%= user.username %></i></span
-            >
+          <h1
+            class="z-10 mx-4 flex flex-wrap justify-center gap-3 text-center text-6xl font-semibold max-sm:text-4xl max-sm:leading-10"
+          >
+            <span> Welcome back, </span>
+            <p class="font-clubhouse max-w-[400px] truncate text-rose-900">
+              <%= user.username %>
+            </p>
           </h1>
           <% } %>
 
@@ -68,7 +70,7 @@
         </header>
         <section class="my-10 flex flex-col items-center justify-center gap-10">
           <div
-            class="flex h-full cursor-pointer items-center justify-center gap-3 text-rose-900 transition-colors hover:text-rose-700"
+            class="flex h-full cursor-pointer flex-wrap items-center justify-center gap-3 text-rose-900 transition-colors hover:text-rose-700"
             id="scroll-down-btn"
           >
             <i class="size-7 animate-bounce" data-lucide="arrow-down"></i>
