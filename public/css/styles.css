@@ -687,6 +687,9 @@
   .overflow-auto {
     overflow: auto;
   }
+  .overflow-clip {
+    overflow: clip;
+  }
   .overflow-hidden {
     overflow: hidden;
   }

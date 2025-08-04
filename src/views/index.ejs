@@ -19,7 +19,7 @@
       <%- include("partials/nav.ejs") %>
     </nav>
     <div class="relative top-[69px]">
-      <main class="mx-2 overflow-hidden">
+      <main class="overflow-hidden">
         <header
           class="<%= !locals.user ? 'pt-40 pb-30' : 'pb-20 pt-30' %> relative flex flex-col items-center justify-center gap-5 bg-gradient-to-b from-white to-rose-50 max-sm:gap-3"
         >
@@ -68,7 +68,9 @@
             class="pointer-events-none absolute top-100 right-0 size-[400px] object-cover opacity-5"
           />
         </header>
-        <section class="my-10 flex flex-col items-center justify-center gap-10">
+        <section
+          class="mx-2 my-10 flex flex-col items-center justify-center gap-10"
+        >
           <div
             class="flex h-full cursor-pointer flex-wrap items-center justify-center gap-3 text-rose-900 transition-colors hover:text-rose-700"
             id="scroll-down-btn"
