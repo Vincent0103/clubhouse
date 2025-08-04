@@ -19,7 +19,7 @@
         <div class="text-sm text-gray-500">
           <%= (locals.user?.is_member || locals.user?.is_admin) ?
           `@${message.USER.username} • ${message.created_at}` :
-          `@${asteriskize(message.USER.username)}${asteriskize(`•${message.created_at}`)}`
+          `@${asteriskize(`${message.USER.username} • ${message.created_at}`)}`
           %>
         </div>
       </div>
