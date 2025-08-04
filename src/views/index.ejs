@@ -81,17 +81,7 @@
         include("partials/adminModal.ejs"), { isRetryingAdmin:
         locals.isRetryingAdmin || false } %>
       </main>
-      <footer>
-        <div
-          class="container mx-auto flex justify-around border-t-1 border-rose-200 py-4 text-center text-xs text-gray-700"
-        >
-          <p>Made by vinct with 🩷</p>
-          <p>
-            &copy; <%= new Date().getFullYear() %> The Clubhouse. All rights
-            reserved.
-          </p>
-        </div>
-      </footer>
+      <footer><%- include("partials/footer.ejs") %></footer>
     </div>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script type="module" src="/js/index.js"></script>
