@@ -7,6 +7,11 @@ import { Strategy as LocalStrategy } from "passport-local";
 import session from "express-session";
 import indexController from "./controllers/indexController";
 import db from "./db/queries";
+import registerRouter from "./routes/registerRouter";
+import loginRouter from "./routes/login/loginRouter";
+import createPostRouter from "./routes/createPostRouter";
+import logoutRouter from "./routes/logoutRouter";
+import deleteMessageRouter from "./routes/deleteMessageRouter";
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -54,17 +59,12 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-app.get("/", indexController.homepageGet);
-app.get("/register", indexController.registerGet);
-app.post("/register", indexController.registerPost);
-app.get("/login", indexController.loginGet);
-app.post("/login", indexController.loginPost);
-app.post("/login-club", indexController.loginClubPost);
-app.post("/login-admin", indexController.loginAdminPost);
-app.get("/logout", indexController.logoutPost);
-app.get("/create-post", indexController.createPostGet);
-app.post("/create-post", indexController.createPostPost);
-app.post("/delete-message/:messageId", indexController.deleteMessagePost);
+app.get("/", indexController.indexGet);
+app.use("/register", registerRouter);
+app.use("/login", loginRouter);
+app.use("/create-post", createPostRouter);
+app.use("/logout", logoutRouter);
+app.use("/delete-message", deleteMessageRouter);
 
 const { PORT } = process.env;
 app.listen(PORT, () => {
