@@ -6,8 +6,11 @@ const deleteMessageController = (() => {
       const { messageId } = req.params;
       if (req.isAuthenticated() && req.user.is_admin) {
         await db.deleteMessage(messageId);
+        return res.redirect("/");
       }
-      res.redirect("/");
+      res.status(403).render("error", {
+        message: "You do not have permission to delete this message.",
+      });
     } catch (err) {
       console.error(err);
       next(err);
