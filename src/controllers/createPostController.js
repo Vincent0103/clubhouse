@@ -24,7 +24,7 @@ const createPostController = (() => {
     if (req.isAuthenticated()) {
       return res.render("createPost", { user: req.user });
     }
-    res.status(403).render("error", {
+    res.status(403).render("allErrorPage", {
       statusCode: 403,
       message: "Access denied: Please log in to view this page.",
     });

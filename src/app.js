@@ -76,18 +76,13 @@ app.use((req, res, next) => {
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err);
-  
+
   const statusCode = err.statusCode || err.status || 500;
-  const message = err.message || 'Something went wrong';
-  
-  // Don't expose error details in production
-  const error = process.env.NODE_ENV === 'development' ? err : null;
-  
-  res.status(statusCode).render('error', {
+  const message = err.message || "Something went wrong";
+
+  res.status(statusCode).render("allErrorPage", {
     statusCode,
     message,
-    error,
-    user: req.user || null
   });
 });
 

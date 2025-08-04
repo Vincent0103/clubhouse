@@ -8,7 +8,8 @@ const deleteMessageController = (() => {
         await db.deleteMessage(messageId);
         return res.redirect("/");
       }
-      res.status(403).render("error", {
+      res.status(403).render("allErrorPage", {
+        statusCode: 403,
         message: "You do not have permission to delete this message.",
       });
     } catch (err) {
