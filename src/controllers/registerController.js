@@ -16,7 +16,7 @@ const registerController = (() => {
   } = validationErrorMessages;
 
   const passwordValidationRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
   const validateRegister = [
     body("firstName")
